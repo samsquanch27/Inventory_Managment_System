@@ -1,0 +1,28 @@
+create database if not exists InventoryManagement;
+use InventoryManagement;
+
+drop table if exists CurrentInventory;
+drop table if exists IncomingPurchases;
+drop table if exists OrdersToShip;
+create table CurrentInventory (
+	id int(10) not null auto_increment,
+	Inventory_name varchar(20) not null,
+	primary key(id)
+);
+create table IncomingPurchases(
+	id int (10) not null auto_increment,
+	Inventory_id int(10) not null,
+	primary key(id),
+	foreign key (inventory_id) references CurrentInventory(id)
+
+);
+create table OrdersToShip(
+	id int(10) not null auto_increment,
+	Purchase_id int(10) not null,
+	Inventory_id int(10) not null,
+	address varchar(10) not null,
+	primary key(id),
+	foreign key(Purchase_id) references IncomingPurchases(id),
+	foreign key(inventory_id) references CurrentInventory(id)
+
+);
